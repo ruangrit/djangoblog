@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib import admin
+from django.forms import ModelForm
 
 
 
@@ -14,6 +15,10 @@ class Post(models.Model):
 	def __unicode__(self):
 		return self.title
 
+class PostForm(ModelForm):
+	class Meta:
+		model = Post
+		fields = ('title', 'body')
 
 ### Admin
 
