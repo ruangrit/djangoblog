@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blogengin',
+    'bootstrap3',
+    'bootstrapform',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'blogengin.views.index'),
-     url('post_form', 'blogengin.views.post_form'),
-    url(r'^(?P<slug>[\w\-]+)/$', 'blogengin.views.post'),
+    url('post_add', 'blogengin.views.post_form'),
+    url(r'^blog/detail/(?P<slug>[\w\-]+)/$', 'blogengin.views.post', name='blog_detail'),
+    url(r'^blog/list/(?P<cid>[\w\-]+)/$', 'blogengin.views.list'),
 )
