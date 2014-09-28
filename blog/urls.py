@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^post/detail/(?P<slug>[\w\-]+)/edit/$', 'blogengin.views.post_form'),
     url(r'^post/list/(?P<cid>[\w\-]+)/$', 'blogengin.views.list'),
 
+    url('login', 'blogengin.views.user_login'),
     url('register', 'blogengin.views.register_user'),
 )

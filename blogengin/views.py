@@ -1,12 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from blogengin.models import Post, Comment, Category
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from blogengin.form import PostForm ,MyRegistrationForm
 from pprint import pprint
 
 from django.contrib import auth                 
+from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf 
+from django.template import RequestContext
 # Create your views here.
 def list(request, cid):
 	posts = Post.objects.filter(cid=cid).order_by('-created')
@@ -43,7 +45,7 @@ def register_user(request):
         form = MyRegistrationForm(request.POST)     # create form object
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/register_success')
+            #return HttpResponseRedirect('/accounts/register_success')
     args = {}
     args.update(csrf(request))
     args['form'] = MyRegistrationForm()
@@ -51,3 +53,16 @@ def register_user(request):
     return render(request, 'blogengin/register.html', args)
 
 
+def user_login(request):
+    logout(request)
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/')
+    return render_to_response('blogengin/login.html', context_instance=RequestContext(request))
