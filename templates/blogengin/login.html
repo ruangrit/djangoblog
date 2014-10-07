@@ -4,7 +4,10 @@
 
 
 <div id="login">
-        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+	{% if form.errors %}
+		<p>nnnnnnn</p>
+	{% endif %}
+        <form class="form-horizontal" name="LoginForm" action="/login/" method="post" class="form">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />

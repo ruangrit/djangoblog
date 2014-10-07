@@ -39,7 +39,10 @@ def post_form(request, slug=None):
 
 		return HttpResponseRedirect(reverse(list, args=(new_post.cid_id,)))
 	return render(request, 'blogengin/post_add.html', {'form': form})
-
+def post_delete(request, slug):
+	if slug:
+		Post.objects.filter(slug=slug).delete()
+		return HttpResponseRedirect('/')
 def register_user(request):
     if request.method == 'POST':
         form = MyRegistrationForm(request.POST)     # create form object
